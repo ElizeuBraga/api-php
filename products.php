@@ -145,7 +145,7 @@
                             },
                         ]).then((result) => {
                             if (result.value) {
-                                axios.get('http://localhost:8080/www/', {params: {
+                                axios.get('http://localhost:8080/www/ebsys-web/', {params: {
                                         request: 'products_save',
                                         name: result.value[0],
                                         price: result.value[1],
@@ -163,7 +163,7 @@
 
                 async loadFromServer(table){
                     if(this.products.length == 0 || this.name != ''){
-                        await axios.get('http://localhost:8080/www/products.php', {params: {request: table, name:this.name}}).then((response)=>{
+                        await axios.get('http://localhost:8080/www/ebsys-web/products.php', {params: {request: table, name:this.name}}).then((response)=>{
                             if(table == 'products'){
                                 this.products = response.data
                             }else{

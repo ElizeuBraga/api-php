@@ -159,7 +159,7 @@
                             },
                         ]).then((result) => {
                             if (result.value) {
-                                axios.get('http://localhost:8080/www/', {params: {
+                                axios.get('http://localhost:8080/www/ebsys-web/', {params: {
                                         request: 'products_save',
                                         name: result.value[0],
                                         price: result.value[1],
@@ -186,7 +186,7 @@
                             }
                         ]).then((result) => {
                             if (result.value) {
-                                axios.get('http://localhost:8080/www/', {params: {
+                                axios.get('http://localhost:8080/www/ebsys-web/', {params: {
                                         request: 'sections_save',
                                         name: result.value[0]
                                     }
@@ -210,7 +210,7 @@
 
                 async loadFromServer(table){
                     if(this.products.length == 0){
-                        await axios.get('http://localhost:8080/www/', {params: {request: table}}).then((response)=>{
+                        await axios.get('http://localhost:8080/www/ebsys-web/', {params: {request: table}}).then((response)=>{
                             if(table == 'products'){
                                 this.products = response.data
                             }else{

@@ -1,7 +1,7 @@
 <?php
     require_once('./models/Ws.php');
     require_once('./models/Db.php');
-    // require_once('./config/config.php');
+    require_once('./config/config.php');
     $db = new Db();
     $teste = (isset($_REQUEST['request'])) ? $_REQUEST['request'] : '';
     switch ($teste) {

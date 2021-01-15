@@ -16,8 +16,6 @@
         }
 
         public static function post(array $data){
-            $sql = 'INSERT INTO '. self::$table .'(name) VALUES (:name)';
-            $sections = DB::insert($sql, $data);
-            return $sections;
+            return DB::insert($data);
         }
     }

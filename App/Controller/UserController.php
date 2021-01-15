@@ -2,6 +2,7 @@
     namespace App\Controller;
 
     use App\Models\User;
+    use App\Models\Helper;
     class UserController{
         public function get($id = null){
             if($id){
@@ -11,8 +12,12 @@
             }
         }
 
-        public function post(){
+        public function post(array $data){
+            $response = User::post($data);
 
+            if($response){
+                echo "Sucesso!!";
+            }
         }
 
         public function update(){

@@ -2,6 +2,8 @@
     namespace App\Controller;
 
     use App\Models\Section;
+    use App\Models\BD;
+    use App\Models\Helper;
     class SectionController{
         public function get($id = null){
             if($id){
@@ -12,7 +14,7 @@
         }
 
         public function post(array $data){
-            echo $data;
+            Section::post($data);
         }
 
         public function update(){

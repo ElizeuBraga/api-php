@@ -1,6 +1,6 @@
 <?php
+    header('Contentent-Type: aplication/json');
     require_once '../vendor/autoload.php';
-
     if($_GET['url']){
         $url = explode('/', $_GET['url']);
         if($url[0] === 'api'){
@@ -18,7 +18,7 @@
                 }
             }elseif($method === 'post'){
                 try {
-                    $response = call_user_func_array(array(new $controller, $method), $_POST);
+                    $response = call_user_func_array(array(new $controller, $method), array($_REQUEST));
                     // echo json_encode(array('status' => 'success', 'data' => $response));
                 } catch (\Throwable $th) {
                     echo $th;

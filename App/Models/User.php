@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
     use App\Models\DB;
+    use App\Models\Helper;
 
     class User{
         private static $table = "users";
@@ -15,8 +16,7 @@
             return $users;
         }
 
-        public static function post(){
-            $users = DB::insert('INSERT INTO '. self::$table .'(name) VALUES (:name)');
-            return $users;
+        public static function post(array $data){
+            return DB::insert($data);
         }
     }

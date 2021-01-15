@@ -28,6 +28,7 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
         'App\\Controller\\SectionController' => __DIR__ . '/../..' . '/App/Controller/SectionController.php',
         'App\\Controller\\UserController' => __DIR__ . '/../..' . '/App/Controller/UserController.php',
         'App\\Models\\DB' => __DIR__ . '/../..' . '/App/Models/DB.php',
+        'App\\Models\\Helper' => __DIR__ . '/../..' . '/App/Models/Helper.php',
         'App\\Models\\Section' => __DIR__ . '/../..' . '/App/Models/Section.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/App/Models/User.php',
     );

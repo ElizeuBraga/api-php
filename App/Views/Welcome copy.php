@@ -1,40 +1,3 @@
-<?php
-    require_once('./models/Ws.php');
-    require_once('./models/Db.php');
-    require_once('./config/config.php');
-    $db = new Db();
-    $teste = (isset($_REQUEST['request'])) ? $_REQUEST['request'] : '';
-    switch ($teste) {
-        case 'products':
-            # code...
-            $sql = "SELECT * FROM products";
-            echo $db->get($sql);
-            die();
-            break;
-        case 'sections':
-            # code...
-            $sql = "SELECT id, name FROM sections";
-            echo $db->get($sql);
-            die();
-            break;
-        case 'products_save':
-            $name = $_REQUEST['name'];
-            $price = (float)$_REQUEST['price'];
-            $section_id = (int)$_REQUEST['section_id'];
-            $sql = "INSERT INTO products(name, price, section_id)VALUES('{$name}', {$price}, {$section_id})";
-            echo $db->insert($sql);
-            die();
-            # code...
-            break;
-        case 'sections_save':
-            $name = $_REQUEST['name'];
-            $sql = "INSERT INTO sections(name)VALUES('{$name}')";
-            echo $db->insert($sql);
-            die();
-            # code...
-            break;
-    }
-?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -112,6 +75,7 @@
         var app = new Vue({
             el: '#app',
             data: {
+                name:"TEste",
                 message: 'Hello Vue!',
                 modalTitle:"Teste",
                 modalType: "",
@@ -210,12 +174,14 @@
 
                 async loadFromServer(table){
                     if(this.products.length == 0){
-                        await axios.get('http://localhost:8080/www/ebsys-web/', {params: {request: table}}).then((response)=>{
+                        await axios.get('http://localhost:8080/ebsys/api/products').then((response)=>{
                             if(table == 'products'){
                                 this.products = response.data
                             }else{
                                 this.sections = response.data
                             }
+
+                            console.log(response.data)
                         })
                     }
                 }

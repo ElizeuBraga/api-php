@@ -34,12 +34,14 @@
             $values = 'values(';
             $count = 0;
 
+            // var_dump($request); die();
             foreach ($request[0] as $key => $value) {
                 $count ++;
                 $keys .= ($count < count($request[0])) ? $key.',':$key.')';
                 $values .= ($count < count($request[0])) ? ':'.$key.',':':'.$key.')';
             }
             $sql .= $keys . $values;
+
         
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $con->beginTransaction();

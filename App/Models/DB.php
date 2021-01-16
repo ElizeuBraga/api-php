@@ -16,6 +16,22 @@
             }else{
                 $sql = "SELECT * FROM ".self::$table." WHERE deleted_at is null";
             }
+
+            $con = new \PDO(DNS,DBUSER,DBPASS);
+            $stmt = $con->prepare($sql);
+            $stmt->execute();
+
+            $arrayData = array();
+            if($stmt->rowCount() > 0){
+                while ($data = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                    array_push($arrayData,$data);
+                }
+            }
+
+            return $arrayData;
+        }
+
+        public static function sqlSelect($sql){
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $stmt = $con->prepare($sql);
             $stmt->execute();
@@ -53,7 +69,10 @@
             }
 
             $con->commit();
-            return true;
+
+            $lastid = self::sqlSelect("SELECT max(id) AS lastid from ". self::$table);
+            self::$id = $lastid[0]['lastid'];
+            return self::select();
         }
 
         public static function update(){
@@ -77,12 +96,14 @@
                 }
             } catch (\PDOException $e) {
                 $con->rollback();
-                echo $e->getMessage();
+                http_response_code(400);
+                echo json_encode(array('message' => $e->getMessage()));
                 die();
             }
 
             $con->commit();
-            return true;
+            http_response_code(200);
+            return self::select();
         }
 
         public static function delete(){

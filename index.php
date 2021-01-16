@@ -27,6 +27,7 @@
                 Helper::checkRoute($url, $method);
                 try {
                     $response = call_user_func_array(array(new $controller, $method), array());
+                    echo json_encode(array('data' => $response));
                 } catch (\Throwable $th) {
                     echo $th;
                 }
@@ -34,6 +35,7 @@
                 Helper::checkRoute($url, $method);
                 try {
                     $response = call_user_func_array(array(new $controller, $method), array());
+                    echo json_encode(array('data' => $response));
                 } catch (\Throwable $th) {
                     echo $th;
                 }

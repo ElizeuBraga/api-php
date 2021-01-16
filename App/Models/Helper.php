@@ -26,7 +26,7 @@
                 }
             }
 
-            $sql .= "updated_at = now() WHERE id = " . $id;
+            $sql .= "updated_at = now() WHERE id = " . $id. " AND deleted_at is null";
             return $sql;
         }
 

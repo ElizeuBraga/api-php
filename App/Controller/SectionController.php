@@ -5,23 +5,19 @@
     use App\Models\BD;
     use App\Models\Helper;
     class SectionController{
-        public function get($id = null){
-            if($id){
-                return Section::get((int)$id);
-            }else{
-                return Section::all();
-            }
+        public function get(){
+            return Section::get();
         }
 
-        public function post(array $data){
-            Section::post($data);
+        public function post(){
+            return Section::post();
         }
 
-        public function update(){
-
+        public function put(){
+            return Section::put();
         }
 
         public function delete(){
-
+            return Section::delete();
         }
     }

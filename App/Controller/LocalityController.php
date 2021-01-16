@@ -1,22 +1,22 @@
 <?php
     namespace App\Controller;
 
-    use App\Models\User;
+    use App\Models\Locality;
     use App\Models\Helper;
-    class UserController{
+    class LocalityController{
         public function get(){
-            return User::get();
+            return Locality::get();
         }
 
         public function post(){
-            return User::post();
+            return Locality::post();
         }
 
         public function put(){
-            return User::put();
+            return Locality::put();
         }
 
         public function delete(){
-            return User::delete();
+            return Locality::delete();
         }
     }

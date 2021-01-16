@@ -1,22 +1,22 @@
 <?php
     namespace App\Controller;
 
-    use App\Models\User;
+    use App\Models\Customer;
     use App\Models\Helper;
-    class UserController{
+    class CustomerController{
         public function get(){
-            return User::get();
+            return Customer::get();
         }
 
         public function post(){
-            return User::post();
+            return Customer::post();
         }
 
         public function put(){
-            return User::put();
+            return Customer::put();
         }
 
         public function delete(){
-            return User::delete();
+            return Customer::delete();
         }
     }

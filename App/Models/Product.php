@@ -1,8 +1,9 @@
 <?php
     namespace App\Models;
     use App\Models\DB;
+    use App\Models\Helper;
 
-    class Section{
+    class Product{
         
         public static function get(){
             return DB::select();

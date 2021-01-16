@@ -1,22 +1,22 @@
 <?php
     namespace App\Controller;
 
-    use App\Models\User;
+    use App\Models\Cashier;
     use App\Models\Helper;
-    class UserController{
+    class CashierController{
         public function get(){
-            return User::get();
+            return Cashier::get();
         }
 
         public function post(){
-            return User::post();
+            return Cashier::post();
         }
 
         public function put(){
-            return User::put();
+            return Cashier::put();
         }
 
         public function delete(){
-            return User::delete();
+            return Cashier::delete();
         }
     }

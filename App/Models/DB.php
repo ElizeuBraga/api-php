@@ -2,6 +2,8 @@
     namespace App\Models;
     class DB{
         static $table, $id, $request;
+
+        // this construct is initialized in index
         public function __construct($url = array()){
             self::$table = (isset($url[1])) ? $url[1] : false;
             self::$id = (isset($url[2])) ? $url[2] : false;
@@ -29,20 +31,10 @@
 
         public static function insert(){
             $request = self::$request;
-            $sql = 'INSERT INTO '. self::$table;
-            $keys = '(';
-            $values = 'values(';
-            $count = 0;
+            
+            //mount sql to insert
+            $sql = Helper::sql_insert($request, self::$table);
 
-            // var_dump($request); die();
-            foreach ($request[0] as $key => $value) {
-                $count ++;
-                $keys .= ($count < count($request[0])) ? $key.',':$key.')';
-                $values .= ($count < count($request[0])) ? ':'.$key.',':':'.$key.')';
-            }
-            $sql .= $keys . $values;
-
-        
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $con->beginTransaction();
             $con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -66,16 +58,9 @@
 
         public static function update(){
             $request = self::$request;
-            $sql = "UPDATE ". self::$table;
-            $count = 0;
-            foreach ($request[0] as $key => $value) {
-                $count ++;
-                if($value != ""){
-                    $sql .= ($count == 1) ? " set ".$key." = :".$key."," : $key." = :".$key.",";
-                }
-            }
-
-            $sql .= "updated_at = now() WHERE id = " . self::$id;
+            
+            //mount sql to update
+            $sql = Helper::sql_update($request, self::$table, self::$id);
 
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $con->beginTransaction();

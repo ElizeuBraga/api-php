@@ -1,7 +1,6 @@
 <?php
     use App\Models\Helper;
     use App\Models\DB;
-    header('Contentent-Type: aplication/json');
     require_once './vendor/autoload.php';
     if(isset($_GET['url'])){
         $url = explode('/', $_GET['url']);
@@ -9,6 +8,7 @@
         $db = new DB($url);
         // Helper::checkRoute($url, $method);
         if($url[0] === 'api'){
+            header('Content-Type: aplication/json');
             $controller = 'App\Controller\\'.ucfirst(substr($url[1], 0, -1)).'Controller';
 
             if($method === 'get'){

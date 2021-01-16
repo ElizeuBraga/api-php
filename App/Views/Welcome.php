@@ -47,15 +47,34 @@
             },
 
             async mounted() {
-                
+                this.get('sections')
+                this.put('sections', {
+                    name: "Caramujo",
+                    id: 174
+                })
             },
 
             methods: {
-                save(table){
-                    axios.post('http://localhost:8080/ebsys/api/'+table, [{name:this.name}]).then((response)=>{
-                        console.log(response)
+                get(table, id = null){
+                    axios.get('http://localhost:8080/ebsys/api/'+table).then((response)=>{
+                        console.log(response.data)
                     })
-                }
+                },
+
+                post(table){
+                    axios.post('http://localhost:8080/ebsys/api/'+table, [{name:this.name}]).then((response)=>{
+                        console.log(response.data)
+                    })
+                },
+
+                put(table, data){
+                    console.log(data.id);
+                    let request = [data]
+                    // return
+                    axios.put('http://localhost:8080/ebsys/api/'+table+'/'+data.id,request).then((response)=>{
+                        console.log(response.data)
+                    })
+                },
             },
         })
         </script>

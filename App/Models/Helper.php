@@ -2,9 +2,32 @@
     namespace App\Models;
 
     class Helper{
-        public static function toArray($array){
-            $array = json_decode(file_get_contents("php://input"), true);
-            return $array;
+        public static function sql_insert($request, $table){
+            $sql = 'INSERT INTO '. $table;
+            $keys = '(';
+            $values = 'values(';
+            $count = 0;
+            foreach ($request[0] as $key => $value) {
+                $count ++;
+                $keys .= ($count < count($request[0])) ? $key.',':$key.')';
+                $values .= ($count < count($request[0])) ? ':'.$key.',':':'.$key.')';
+            }
+            $sql .= $keys . $values;
+            return $sql;
+        }
+
+        public static function sql_update($request, $table, $id){
+            $sql = "UPDATE ". $table;
+            $count = 0;
+            foreach ($request[0] as $key => $value) {
+                $count ++;
+                if($value != ""){
+                    $sql .= ($count == 1) ? " set ".$key." = :".$key."," : $key." = :".$key.",";
+                }
+            }
+
+            $sql .= "updated_at = now() WHERE id = " . $id;
+            return $sql;
         }
 
         public static function checkRoute($url, $method){

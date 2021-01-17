@@ -3,7 +3,7 @@
 
     use App\Models\Locality;
     use App\Models\Helper;
-    class LocalityController{
+    class LocalitieController{
         public function get(){
             return Locality::get();
         }

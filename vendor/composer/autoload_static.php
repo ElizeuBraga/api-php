@@ -27,8 +27,9 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
     public static $classMap = array (
         'App\\Controller\\CashierController' => __DIR__ . '/../..' . '/App/Controller/CashierController.php',
         'App\\Controller\\CustomerController' => __DIR__ . '/../..' . '/App/Controller/CustomerController.php',
+        'App\\Controller\\HomeController' => __DIR__ . '/../..' . '/App/Controller/HomeController.php',
         'App\\Controller\\ItemController' => __DIR__ . '/../..' . '/App/Controller/ItemController.php',
-        'App\\Controller\\LocalityController' => __DIR__ . '/../..' . '/App/Controller/LocalityController.php',
+        'App\\Controller\\LocalitieController' => __DIR__ . '/../..' . '/App/Controller/LocalitieController.php',
         'App\\Controller\\OrderController' => __DIR__ . '/../..' . '/App/Controller/OrderController.php',
         'App\\Controller\\ProductController' => __DIR__ . '/../..' . '/App/Controller/ProductController.php',
         'App\\Controller\\SectionController' => __DIR__ . '/../..' . '/App/Controller/SectionController.php',
@@ -37,6 +38,7 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/App/Models/Customer.php',
         'App\\Models\\DB' => __DIR__ . '/../..' . '/App/Models/DB.php',
         'App\\Models\\Helper' => __DIR__ . '/../..' . '/App/Models/Helper.php',
+        'App\\Models\\Home' => __DIR__ . '/../..' . '/App/Models/Home.php',
         'App\\Models\\Item' => __DIR__ . '/../..' . '/App/Models/Item.php',
         'App\\Models\\Locality' => __DIR__ . '/../..' . '/App/Models/Locality.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/App/Models/Order.php',

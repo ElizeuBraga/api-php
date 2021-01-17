@@ -64,7 +64,7 @@
                 }
             } catch (\PDOException $e) {
                 $con->rollback();
-                echo $e->getMessage();
+                echo json_encode(array('message' => $e->getMessage()));
                 die();
             }
 
@@ -80,6 +80,9 @@
             
             //mount sql to update
             $sql = Helper::sql_update($request, self::$table, self::$id);
+
+            // var_dump($request); die();
+            // echo $sql; die();
 
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $con->beginTransaction();
@@ -97,7 +100,7 @@
             } catch (\PDOException $e) {
                 $con->rollback();
                 http_response_code(400);
-                echo json_encode(array('message' => $e->getMessage()));
+                return json_encode(array('message' => $e->getMessage()));
                 die();
             }
 

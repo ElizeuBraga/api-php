@@ -1,0 +1,125 @@
+begin;
+-- CREATE database if not exists ebsys;
+-- use ebsys;
+DROP table if exists items;
+DROP table if exists payments;
+DROP table if exists orders;
+DROP table if exists customers;
+DROP table if exists localities;
+DROP table if exists products;
+DROP table if exists sections;
+DROP table if exists cashiers;
+DROP table if exists users;
+
+
+-- made in ws
+CREATE table sections(
+	id integer auto_increment primary key,
+	name varchar(50) not null,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP null,
+	deleted_at TIMESTAMP null
+);
+
+-- made in ws
+create table products (
+	id integer auto_increment primary key,
+	name varchar(50) not null,
+	price real not null,
+	section_id integer not null,
+	ask_obs boolean not null default 1,
+	updated boolean not null default 1,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP null,
+	deleted_at TIMESTAMP null,
+	foreign key (section_id) references sections(id)
+);
+
+-- made in ws
+CREATE table localities(
+	id integer auto_increment primary key,
+	name varchar(20) not null,
+	updated boolean not null default 1,
+	product_id integer not null,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at timestamp null,
+	deleted_at timestamp null,
+	foreign key (product_id) references products (id)
+	
+);
+
+-- made in ws
+CREATE table users(
+	id integer auto_increment primary key,
+	name varchar(20) not null,
+	email varchar(50) unique not null,
+	phone varchar(11) unique not null,
+	password varchar(60) not null,
+	role varchar(10)not null,
+	token varchar(60),
+	updated boolean not null default 1,
+	change_password boolean not null default 1,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at timestamp null,
+	deleted_at timestamp null
+);
+
+-- made in local
+CREATE table customers(
+	id integer primary key,
+	name varchar(50) not null,
+	address varchar(50) not null,
+	phone varchar(11) unique not null,
+	locality_id integer not null,
+	created_at timestamp not null,
+	updated_at timestamp null,
+	deleted_at timestamp null,
+	foreign key (locality_id) references localities(id)
+);
+
+-- made in local
+create table cashiers(
+	id integer primary key,
+	user_id integer not null,
+	money real,
+	debit real,
+	credit real,
+	ticket real,
+	created_at timestamp not null,
+	updated_at timestamp null,
+	deleted_at timestamp null,
+	foreign key (user_id) references users (id)
+);
+
+-- made in local
+CREATE table orders(
+	id integer primary key,
+	cashier_id integer not null,
+	customer_id integer,
+	money real not null default 0,
+	debit real not null default 0,
+	credit real not null default 0,
+	ticket real not null default 0,
+	order_type integer not null,
+	created_at timestamp not null,
+	updated_at timestamp null,
+	deleted_at timestamp null,
+	foreign key (cashier_id) references cashiers (id),
+	foreign key (customer_id) references customers (id)
+);
+
+-- made in local
+create table items(
+	id integer primary key,
+	quantity integer not null,
+	product_id integer not null,
+	price real not null,
+	order_id integer not null,
+	created_at timestamp not null,
+	updated_at timestamp null,
+	deleted_at timestamp null,
+	foreign key (order_id) references orders (id),
+	foreign key (product_id) references products (id)
+);
+
+commit;

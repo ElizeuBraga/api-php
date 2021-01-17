@@ -2,6 +2,7 @@
     use App\Models\Helper;
     use App\Models\DB;
     require_once './vendor/autoload.php';
+    $_SESSION['page'] = 'home';
     if(isset($_GET['url'])){
         $url = explode('/', $_GET['url']);
         $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -19,7 +20,7 @@
                         $url = null;
                     }
                     $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode(array('data' => $response));
+                    echo json_encode($response);
                 } catch (\Throwable $th) {
                     echo $th;
                 }
@@ -27,7 +28,7 @@
                 Helper::checkRoute($url, $method);
                 try {
                     $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode(array('data' => $response));
+                    echo json_encode($response);
                 } catch (\Throwable $th) {
                     echo $th;
                 }
@@ -35,7 +36,7 @@
                 Helper::checkRoute($url, $method);
                 try {
                     $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode(array('data' => $response));
+                    echo json_encode(array($response));
                 } catch (\Throwable $th) {
                     echo $th;
                 }
@@ -47,8 +48,7 @@
                 }
             }
         }elseif($url[0] != 'api'){
-            $url = ucfirst(substr($url[0], 0));
-            $_SESSION['page'] = $url;
+            $_SESSION['page'] = $url[0];
             include "App/Views/Welcome.php";
         }
     }else{

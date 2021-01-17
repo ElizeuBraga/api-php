@@ -8,8 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Controller\\CashierController' => $baseDir . '/App/Controller/CashierController.php',
     'App\\Controller\\CustomerController' => $baseDir . '/App/Controller/CustomerController.php',
+    'App\\Controller\\HomeController' => $baseDir . '/App/Controller/HomeController.php',
     'App\\Controller\\ItemController' => $baseDir . '/App/Controller/ItemController.php',
-    'App\\Controller\\LocalityController' => $baseDir . '/App/Controller/LocalityController.php',
+    'App\\Controller\\LocalitieController' => $baseDir . '/App/Controller/LocalitieController.php',
     'App\\Controller\\OrderController' => $baseDir . '/App/Controller/OrderController.php',
     'App\\Controller\\ProductController' => $baseDir . '/App/Controller/ProductController.php',
     'App\\Controller\\SectionController' => $baseDir . '/App/Controller/SectionController.php',
@@ -18,6 +19,7 @@ return array(
     'App\\Models\\Customer' => $baseDir . '/App/Models/Customer.php',
     'App\\Models\\DB' => $baseDir . '/App/Models/DB.php',
     'App\\Models\\Helper' => $baseDir . '/App/Models/Helper.php',
+    'App\\Models\\Home' => $baseDir . '/App/Models/Home.php',
     'App\\Models\\Item' => $baseDir . '/App/Models/Item.php',
     'App\\Models\\Locality' => $baseDir . '/App/Models/Locality.php',
     'App\\Models\\Order' => $baseDir . '/App/Models/Order.php',

@@ -3,15 +3,10 @@
     use App\Models\DB;
     use App\Models\Helper;
 
-    class Product{
+    class Page{
         
         public static function get(){
-            $sql = "SELECT 
-                        p.id, p.name, p.price, s.name as section, p.section_id
-                    FROM
-                        products p 
-                    JOIN sections s on s.id = p.section_id ORDER BY s.name, p.name";
-            return DB::sqlSelect($sql);
+            return DB::select();
         }
 
         public static function post(){

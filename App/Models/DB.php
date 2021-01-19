@@ -12,9 +12,9 @@
 
         public static function select(){
             if(self::$id && self::$id != ""){
-                $sql = "SELECT * FROM ".self::$table." WHERE id = ". self::$id. " AND deleted_at is null";
+                $sql = "SELECT * FROM ".self::$table." WHERE id = ". self::$id. " AND deleted_at is null ORDER BY name ASC";
             }else{
-                $sql = "SELECT * FROM ".self::$table." WHERE deleted_at is null";
+                $sql = "SELECT * FROM ".self::$table." WHERE deleted_at is null ORDER BY name ASC";
             }
 
             $con = new \PDO(DNS,DBUSER,DBPASS);
@@ -46,7 +46,12 @@
         }
 
         public static function insert(){
+            
             $request = self::$request;
+            if(self::$table == 'users'){
+                $request[0]['password'] = '123456';
+                $request[0]['role'] = 1;
+            }
             
             //mount sql to insert
             $sql = Helper::sql_insert($request, self::$table);
@@ -63,8 +68,9 @@
                     $stmt->execute();
                 }
             } catch (\PDOException $e) {
+                http_response_code(200);
                 $con->rollback();
-                echo json_encode(array('message' => $e->getMessage()));
+                echo json_encode(array('message' => Helper::trateMessageDb($e->getMessage())));
                 die();
             }
 
@@ -99,8 +105,8 @@
                 }
             } catch (\PDOException $e) {
                 $con->rollback();
-                http_response_code(400);
-                return json_encode(array('message' => $e->getMessage()));
+                http_response_code(200);
+                echo json_encode(array('message' => Helper::trateMessageDb($e->getMessage())));
                 die();
             }
 

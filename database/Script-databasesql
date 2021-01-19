@@ -2,6 +2,7 @@ begin;
 -- CREATE database if not exists ebsys;
 -- use ebsys;
 DROP table if exists items;
+DROP table if exists pages;
 DROP table if exists payments;
 DROP table if exists orders;
 DROP table if exists customers;
@@ -11,6 +12,18 @@ DROP table if exists sections;
 DROP table if exists cashiers;
 DROP table if exists users;
 
+
+-- made in ws
+CREATE table pages(
+	id integer auto_increment primary key,
+	name varchar(50) not null,
+	model varchar(50),
+	url varchar(100),
+	visible boolean default false,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP null,
+	deleted_at TIMESTAMP null
+);
 
 -- made in ws
 CREATE table sections(

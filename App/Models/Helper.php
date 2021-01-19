@@ -46,4 +46,17 @@
                 }
             }
         }
+
+        public static function trateMessageDb($message){
+            if (strpos($message, 'Duplicate')) {
+                if(strpos($message, 'email')){
+                    return "Email já cadastrado";
+                }
+                if(strpos($message, 'phone')){
+                    return "Telefone já cadastrado";
+                }
+            }else{
+                return $message;
+            }
+        }
     }

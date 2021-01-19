@@ -27,33 +27,39 @@
     </head>
     <body>
         <div id="app" class="container-fluid">
-        <h5 v-if="page != 'homes'" class="card-title text-center">{{page}}</h5>
+        <h5 v-if="page != 'home'" class="card-title text-center">{{page}}</h5>
         <h5 v-else class="card-title text-center">Ebsys</h5>
-        <table v-if="page != 'home' && page != 'homes'" class="table">
-            <thead>
-                <tr>
-                <th scope="col">Nome</th>
-                <th v-if="page == 'products'" scope="col">Preço</th>
-                <th v-if="page == 'users'" scope="col">Telefone</th>                
-                <th v-if="editIsPermited" scope="col" style="text-align:right">
-                    <button class="btn btn-primary" @click="post">Novo</button>
-                </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(i, index) in items" :key="index">
-                    <td>{{i.name}}</td>
-                    <td v-if="page == 'products'">{{i.price}}</td>
-                    <td v-if="page == 'users'">{{i.phone}}</td>
-                    <td v-if="editIsPermited" align="right">
-                        <button class="btn btn-primary" @click="put(i)">Editar</button>
-                        <button class="btn btn-danger" @click="destroy(i.id)">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-else>
+        <div v-if="page == 'home' || page == 'pages'">
             <a :href="i.url" v-for="(i, index) in items" class="btn btn-primary col-12 mt-2 p-4">{{i.name}}</a>
+        </div>
+        <div v-else>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th v-if="page == 'products'" scope="col">Preço</th>
+                        <th v-if="page == 'products'" scope="col">Seção</th>
+                        <th v-if="page == 'users'" scope="col">Telefone</th>                
+                        <th v-if="page == 'users'" scope="col" class="text-nowrap">Email</th>                
+                        <th v-if="editIsPermited" scope="col" style="text-align:right">
+                            <button class="btn btn-primary" @click="post">Novo</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(i, index) in items" :key="index">
+                        <td>{{i.name}}</td>
+                        <td v-if="page == 'products'">{{i.price}}</td>
+                        <td v-if="page == 'products'">{{i.section}}</td>
+                        <td v-if="page == 'users'">{{i.phone}}</td>
+                        <td v-if="page == 'users'">{{i.email}}</td>
+                        <td v-if="editIsPermited" align="right">
+                            <button class="btn btn-primary" @click="put(i)">Editar</button>
+                            <button class="btn btn-danger" @click="destroy(i.id)">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <!-- <button style="margin-top:130%">Teste</button> -->
         </div>
@@ -64,6 +70,7 @@
             data: {
                 // items returned by api
                 items:[],
+                sections:[],
                 item:{
 
                 },
@@ -74,10 +81,9 @@
             },
 
             async mounted() {
-                if(this.page == 'home'){
-                    this.page += 's'
-                }
+                this.item={}
                 this.get()
+                this.loadSections()
             },
 
             computed: {
@@ -87,32 +93,35 @@
             },
 
             methods: {
+                async loadSections(){
+                    await axios.get('http://localhost:8080/ebsys/api/sections').then((response)=>{
+                        this.sections = response.data
+                    })
+                },
+
                 async get(){
+                    if(this.page == 'home'){
+                        this.page = 'pages'
+                    }
                     await axios.get('http://localhost:8080/ebsys/api/'+this.page).then((response)=>{
                         this.items = response.data
                     })
                 },
 
-                post(table){
-                    axios.post('http://localhost:8080/ebsys/api/'+table, [{name:this.name}]).then((response)=>{
-                        // console.log(response.data)
-                    })
-                },
-
-                async put(item){
+                async post(){
                     const { value: formValues } = await Swal.fire({
-                        title: 'Editar',
+                        title: 'Novo',
                         html: this.inputs(),
                         focusConfirm: false,
                         showCancelButton:true,
                         didOpen: () => {
-                            if(this.page == 'sections'){
-                                document.getElementById('swal-input1').value = item.name
-                            }else if(this.page == 'users'){
-                                document.getElementById('swal-input1').value = item.name
-                                document.getElementById('swal-input2').value = item.phone
-                                document.getElementById('swal-input3').value = item.email
-                            }
+                            // if(this.page == 'sections'){
+                            //     document.getElementById('swal-input1').value = this.item.name
+                            // }else if(this.page == 'users'){
+                            //     document.getElementById('swal-input1').value = this.item.name
+                            //     document.getElementById('swal-input2').value = this.item.phone
+                            //     document.getElementById('swal-input3').value = this.item.email
+                            // }
                         },
                         preConfirm: () => {
                             if(this.page == 'sections'){
@@ -124,6 +133,12 @@
                                     document.getElementById('swal-input1').value,
                                     document.getElementById('swal-input2').value,
                                     document.getElementById('swal-input3').value
+                                ]
+                            }else if(this.page == 'products'){
+                                return [
+                                    document.getElementById('swal-input1').value,
+                                    document.getElementById('swal-input2').value,
+                                    document.getElementById('swal2-select').value,
                                 ]
                             }
                         }
@@ -143,11 +158,102 @@
                                     email: formValues[2]
                                 }
                             ]
+                        }else if(this.page == 'products'){
+                            request = [
+                                {   
+                                    name: formValues[0],
+                                    price: formValues[1],
+                                    section_id: formValues[2],
+                                }
+                            ]
                         }
-                        
-                        console.log(request);
+                        axios.post('http://localhost:8080/ebsys/api/'+this.page, request).then((response)=>{
+                            if(response.data.message){
+                                Swal.fire({
+                                    title:"Ops!",
+                                    text: response.data.message,
+                                    icon:"info"
+                                })
+                            }else{
+                                this.get();
+                            }
+                        })
+                    }
+                },
+
+                async put(item){
+                    const { value: formValues } = await Swal.fire({
+                        title: 'Editar',
+                        html: this.inputs(),
+                        focusConfirm: false,
+                        showCancelButton:true,
+                        didOpen: () => {
+                            if(this.page == 'sections'){
+                                document.getElementById('swal-input1').value = item.name
+                            }else if(this.page == 'users'){
+                                document.getElementById('swal-input1').value = item.name
+                                document.getElementById('swal-input2').value = item.phone
+                                document.getElementById('swal-input3').value = item.email
+                            }else if(this.page == 'products'){
+                                document.getElementById('swal-input1').value = item.name
+                                document.getElementById('swal-input2').value = item.price
+                                document.getElementById('swal2-select').value = item.section_id
+                            }
+                        },
+                        preConfirm: () => {
+                            if(this.page == 'sections'){
+                                return [
+                                    document.getElementById('swal-input1').value
+                                ]
+                            }else if(this.page == 'users'){
+                                return [
+                                    document.getElementById('swal-input1').value,
+                                    document.getElementById('swal-input2').value,
+                                    document.getElementById('swal-input3').value
+                                ]
+                            }else if(this.page == 'products'){
+                                return [
+                                    document.getElementById('swal-input1').value,
+                                    document.getElementById('swal-input2').value,
+                                    document.getElementById('swal2-select').value,
+                                ]
+                            }
+                        }
+                    })
+
+                    if (formValues) {
+                        let request = [];
+                        if(this.page == 'sections'){
+                            request = [
+                                {name: formValues[0]}
+                            ]
+                        }else if(this.page == 'users'){
+                            request = [
+                                {   
+                                    name: formValues[0],
+                                    phone: formValues[1],
+                                    email: formValues[2]
+                                }
+                            ]
+                        }else if(this.page == 'products'){
+                            request = [
+                                {   
+                                    name: formValues[0],
+                                    price: formValues[1],
+                                    section_id: formValues[2],
+                                }
+                            ]
+                        }
                         axios.put('http://localhost:8080/ebsys/api/'+this.page+'/'+item.id,request).then((response)=>{
-                            this.get();
+                            if(response.data.message){
+                                Swal.fire({
+                                    title:"Ops!",
+                                    text: response.data.message,
+                                    icon:"info"
+                                })
+                            }else{
+                                this.get();
+                            }
                         })
                     }
                 },
@@ -176,9 +282,17 @@
                     if(this.page == 'sections'){
                         html = '<input id="swal-input1" class="swal2-input">';
                     }else if(this.page == 'users'){
-                        html = '<input id="swal-input1" class="swal2-input">';
-                        html += '<input id="swal-input2" class="swal2-input">';
-                        html += '<input id="swal-input3" class="swal2-input">';
+                        html = '<input id="swal-input1" placeholder="Nome" class="swal2-input">';
+                        html += '<input id="swal-input2" placeholder="Telefone" class="swal2-input">';
+                        html += '<input id="swal-input3" placeholder="Email" class="swal2-input">';
+                    }else if(this.page == 'products'){
+                        html = '<input id="swal-input1" placeholder="Nome" class="swal2-input">';
+                        html += '<input id="swal-input2" placeholder="Valor" class="swal2-input">';
+                        html += '<select id="swal2-select" class="swal2-select" name=""><option selected value disabled>Selecione</option>';
+                        this.sections.forEach(element => {
+                            html += '<option value="'+element.id+'">'+element.name+'</option>';
+                        });
+                        html += '</select>';
                     }
 
                     return html;

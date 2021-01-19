@@ -14,11 +14,15 @@
 
             if($method === 'get'){
                 try {
+                    // if(isset($url[2]) && is_string($url[2])){
+                    //     $method = $url[2];
+                    // }
                     if(isset($url[2])){
                         $url = $url[2];
                     }else{
                         $url = null;
                     }
+
                     $response = call_user_func_array(array(new $controller, $method), array());
                     echo json_encode($response);
                 } catch (\Throwable $th) {
@@ -36,7 +40,7 @@
                 Helper::checkRoute($url, $method);
                 try {
                     $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode(array($response));
+                    echo json_encode($response);
                 } catch (\Throwable $th) {
                     echo $th;
                 }

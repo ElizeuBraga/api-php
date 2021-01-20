@@ -3,14 +3,16 @@
     use App\Models\DB;
     require_once '../vendor/autoload.php';
     $_SESSION['page'] = 'home';
+
     if(isset($_GET['url'])){
         $url = explode('/', $_GET['url']);
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $db = new DB($url);
+        // var_dump($url);die();
         // Helper::checkRoute($url, $method);
         if($url[0] === 'api'){
             header('Content-Type: aplication/json');
-            $controller = 'App\Controller\\'.ucfirst(substr($url[1], 0, -1)).'Controller';
+            $controller = '\App\Controller\\'.ucfirst(substr($url[1], 0, -1)).'Controller';
 
             if($method === 'get'){
                 try {
@@ -53,8 +55,8 @@
             }
         }elseif($url[0] != 'api'){
             $_SESSION['page'] = $url[0];
-            include "App/Views/Welcome.php";
+            include "../App/Views/Welcome.php";
         }
     }else{
-        include "App/Views/Welcome.php";
+        include "../App/Views/Welcome.php";
     }

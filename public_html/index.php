@@ -1,7 +1,7 @@
 <?php
     use App\Models\Helper;
     use App\Models\DB;
-    require_once './vendor/autoload.php';
+    require_once '../vendor/autoload.php';
     $_SESSION['page'] = 'home';
     if(isset($_GET['url'])){
         $url = explode('/', $_GET['url']);

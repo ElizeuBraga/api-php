@@ -3,59 +3,37 @@
     use App\Models\DB;
     require_once '../vendor/autoload.php';
     $_SESSION['page'] = 'home';
-
     if(isset($_GET['url'])){
-        $url = explode('/', $_GET['url']);
+        $url = explode('/', $_GET['url']); 
+        $_SESSION['page'] = $url[0];
+    }
+
+    if(isset($url) && $url[0] === 'api'){
+
+        header('Content-Type: aplication/json');
+
+        // the method acording to REQUEST_METHOD (get, post, put, delete)
         $method = strtolower($_SERVER['REQUEST_METHOD']);
+
+        // init database
         $db = new DB($url);
-        // var_dump($url);die();
-        // Helper::checkRoute($url, $method);
-        if($url[0] === 'api'){
-            header('Content-Type: aplication/json');
-            $controller = '\App\Controller\\'.ucfirst(substr($url[1], 0, -1)).'Controller';
 
-            if($method === 'get'){
-                try {
-                    // if(isset($url[2]) && is_string($url[2])){
-                    //     $method = $url[2];
-                    // }
-                    if(isset($url[2])){
-                        $url = $url[2];
-                    }else{
-                        $url = null;
-                    }
-
-                    $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode($response);
-                } catch (\Throwable $th) {
-                    echo $th;
-                }
-            }elseif($method === 'post'){
-                Helper::checkRoute($url, $method);
-                try {
-                    $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode($response);
-                } catch (\Throwable $th) {
-                    echo $th;
-                }
-            }elseif($method === 'put'){
-                Helper::checkRoute($url, $method);
-                try {
-                    $response = call_user_func_array(array(new $controller, $method), array());
-                    echo json_encode($response);
-                } catch (\Throwable $th) {
-                    echo $th;
-                }
-            }elseif($method === 'delete'){
-                try {
-                    $response = call_user_func_array(array(new $controller, $method), array());
-                } catch (\Throwable $th) {
-                    echo $th;
-                }
-            }
-        }elseif($url[0] != 'api'){
-            $_SESSION['page'] = $url[0];
-            include "../App/Views/Welcome.php";
+        $model = ucfirst(substr($url[1], 0, -1));
+        $method = $url[2];
+        $controller = '\App\Controller\\'.$model.'Controller';
+        
+        /*
+            to adapt to hosts that don't acept PUT and DELETE methods
+            the routes have looks like
+            api/sections/get/114
+            api/sections/put/114
+        */
+        $methods = ['get', 'post', 'put', 'delete'];
+        if(in_array($method, $methods)){
+            $response = call_user_func_array(array(new $controller, $method), array());
+            echo json_encode($response);
+        }else{
+            echo json_encode('Method ('.$method.') not allowed');
         }
     }else{
         include "../App/Views/Welcome.php";

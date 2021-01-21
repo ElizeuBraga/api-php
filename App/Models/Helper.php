@@ -59,4 +59,12 @@
                 return $message;
             }
         }
+
+        public static function see($array, $die = true){
+            echo json_encode($array);
+
+            if($die){
+                die();
+            }
+        }
     }

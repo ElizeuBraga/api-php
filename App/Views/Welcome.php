@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title><?php echo $_SESSION['page'];?></title>
+        <title><?php echo $_SESSION['page']; ?></title>
 
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
@@ -27,6 +27,7 @@
     </head>
     <body>
         <div id="app" class="container-fluid">
+        <input type="hidden" value="<?php echo $_SESSION['page']?>">
         <h5 v-if="page != 'home'" class="card-title text-center">{{page}}</h5>
         <h5 v-else class="card-title text-center">Ebsys</h5>
         <div v-if="page == 'home' || page == 'pages'">
@@ -69,7 +70,7 @@
             el: '#app',
             data: {
                 isProduction: false,
-                url: 'http://localhost:8080/ebsys/public_html/',
+                url: 'http://localhost:8080/ebsys/public_html/api/',
                 // items returned by api
                 items:[],
                 sections:[],
@@ -83,12 +84,12 @@
             },
 
             async mounted() {
-                if(window.location.host != 'localhost:8080'){
+                if(window.location.hostname != 'localhost'){
                     this.isProduction = true;
-                    this.url = 'https://ebsysautomacao.000webhostapp.com/';
+                    this.url = 'https://ebsysautomacao.000webhostapp.com/api/';
                 }
+                this.get();
                 this.item={}
-                this.get()
                 this.loadSections()
             },
 
@@ -100,7 +101,7 @@
 
             methods: {
                 async loadSections(){
-                    await axios.get(this.url + 'api/sections').then((response)=>{
+                    await axios.get(this.url+'sections/get').then((response)=>{
                         this.sections = response.data
                     })
                 },
@@ -109,9 +110,7 @@
                     if(this.page == 'home'){
                         this.page = 'pages'
                     }
-
-                    console.log(this.page)
-                    await axios.get(this.url+'api/'+this.page).then((response)=>{
+                    await axios.get(this.url+this.page+'/get').then((response)=>{
                         this.items = response.data
                     })
                 },
@@ -175,7 +174,7 @@
                                 }
                             ]
                         }
-                        axios.post(this.url + 'api/'+this.page, request).then((response)=>{
+                        axios.post(this.url + this.page+'/post/', request).then((response)=>{
                             if(response.data.message){
                                 Swal.fire({
                                     title:"Ops!",
@@ -252,7 +251,7 @@
                                 }
                             ]
                         }
-                        axios.put(this.url + 'api/'+this.page+'/'+item.id,request).then((response)=>{
+                        axios.post(this.url +this.page+'/put/'+item.id,request).then((response)=>{
                             if(response.data.message){
                                 Swal.fire({
                                     title:"Ops!",
@@ -273,7 +272,7 @@
                         showCancelButton:true
                     }).then((e)=>{
                         if(e.value){
-                            axios.delete(this.url + 'api/'+this.page+'/'+id).then((response)=>{
+                            axios.post(this.url+this.page+'/delete/'+id).then((response)=>{
                                 Swal.fire({
                                     title:"Excluido",
                                     icon:"success"

@@ -10,7 +10,7 @@
                         p.id, p.name, p.price, s.name as section, p.section_id
                     FROM
                         products p 
-                    JOIN sections s on s.id = p.section_id ORDER BY s.name, p.name";
+                    JOIN sections s on s.id = p.section_id WHERE p.deleted_at is null ORDER BY s.name, p.name";
             return DB::sqlSelect($sql);
         }
 

@@ -6,7 +6,7 @@
         // this construct is initialized in index
         public function __construct($url = array()){
             self::$table = (isset($url[1])) ? $url[1] : false;
-            self::$id = (isset($url[2])) ? $url[2] : false;
+            self::$id = (isset($url[3])) ? (int)$url[3] : false;
             self::$request = json_decode(file_get_contents("php://input"), true);
         }
 

@@ -19,4 +19,8 @@
         public function delete(){
             return Cashier::delete();
         }
+
+        public function getLastId(){
+            return Cashier::getLastId();
+        }
     }

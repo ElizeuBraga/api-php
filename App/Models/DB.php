@@ -39,20 +39,22 @@
             $arrayData = array();
             if($stmt->rowCount() > 0){
                 while ($data = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                    if(isset($data['id'])){
+                        $data['id'] = (int)$data['id'];
+                    }
                     array_push($arrayData,$data);
                 }
             }
             return $arrayData;
         }
 
-        public static function insert(){
-            
-            $request = self::$request;
-            if(self::$table == 'users'){
-                $request[0]['password'] = '123456';
-                $request[0]['role'] = 1;
+        public static function insert($request = array()){
+            if($request){
+                $request = $request;
+            }else{
+                $request = self::$request;
             }
-            
+
             //mount sql to insert
             $sql = Helper::sql_insert($request, self::$table);
 

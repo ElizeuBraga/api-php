@@ -2,6 +2,10 @@
     namespace App\Models;
 
     class Helper{
+        public static function getInputs(){
+            return json_decode(file_get_contents("php://input"), true);
+        }
+
         public static function sql_insert($request, $table){
             $sql = 'INSERT INTO '. $table;
             $keys = '(';

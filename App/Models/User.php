@@ -4,13 +4,18 @@
     use App\Models\Helper;
 
     class User{
-        
+        static $table = 'users';
         public static function get(){
-            return DB::select();
+            $sql = "SELECT id, name, email, phone, password, change_password FROM " . self::$table;
+            return DB::sqlSelect($sql);
         }
 
         public static function post(){
-            return DB::insert();
+            $request = Helper::getInputs();
+            $request[0]['password'] = password_hash('12345', PASSWORD_DEFAULT);
+            $request[0]['role'] = 1;
+            Helper::see($request);
+            return DB::insert($request);
         }
 
         public static function put(){
@@ -19,5 +24,11 @@
 
         public static function delete(){
             return DB::delete();
+        }
+
+        public static function getLastId(){
+            $sql = "SELECT MAX(id) as lastId FROM " . self::$table;
+            Helper::see(DB::sqlSelect($sql));
+            return DB::sqlSelect($sql);
         }
     }

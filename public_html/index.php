@@ -28,7 +28,7 @@
             api/sections/get/114
             api/sections/put/114
         */
-        $methods = ['get', 'post', 'put', 'delete'];
+        $methods = ['get', 'post', 'put', 'delete', 'getLastId'];
         if(in_array($method, $methods)){
             $response = call_user_func_array(array(new $controller, $method), array());
             echo json_encode($response);

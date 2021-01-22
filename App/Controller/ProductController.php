@@ -19,4 +19,8 @@
         public function delete(){
             return Product::delete();
         }
+
+        public function getLastId(){
+            return Product::getLastId();
+        }
     }

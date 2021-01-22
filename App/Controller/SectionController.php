@@ -20,4 +20,8 @@
         public function delete(){
             return Section::delete();
         }
+
+        public function getLastId(){
+            return Section::getLastId();
+        }
     }

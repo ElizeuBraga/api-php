@@ -19,4 +19,8 @@
         public function delete(){
             return Order::delete();
         }
+
+        public function getLastId(){
+            return Order::getLastId();
+        }
     }

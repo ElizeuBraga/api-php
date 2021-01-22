@@ -4,7 +4,7 @@
     use App\Models\Helper;
 
     class Product{
-        
+        static $table = 'products';
         public static function get(){
             $sql = "SELECT 
                         p.id, p.name, p.price, s.name as section, p.section_id
@@ -24,5 +24,10 @@
 
         public static function delete(){
             return DB::delete();
+        }
+
+        public static function getLastId(){
+            $sql = "SELECT CASE WHEN MAX(id) IS NULL THEN 0 ELSE MAX(id) END AS lastId FROM " . self::$table;
+            return DB::sqlSelect($sql);
         }
     }

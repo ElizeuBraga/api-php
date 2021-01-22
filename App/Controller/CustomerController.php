@@ -19,4 +19,8 @@
         public function delete(){
             return Customer::delete();
         }
+
+        public function getLastId(){
+            return Customer::getLastId();
+        }
     }

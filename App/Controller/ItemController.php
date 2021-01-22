@@ -19,4 +19,8 @@
         public function delete(){
             return Item::delete();
         }
+
+        public function getLastId(){
+            return Item::getLastId();
+        }
     }

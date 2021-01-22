@@ -19,4 +19,8 @@
         public function delete(){
             return Locality::delete();
         }
+
+        public function getLastId(){
+            return Locality::getLastId();
+        }
     }

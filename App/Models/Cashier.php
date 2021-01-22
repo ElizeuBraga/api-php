@@ -23,7 +23,6 @@
 
         public static function getLastId(){
             $sql = "SELECT CASE WHEN MAX(id) IS NULL THEN 0 ELSE MAX(id) END AS lastId FROM " . self::$table;
-            // Helper::see(DB::sqlSelect($sql));
             return DB::sqlSelect($sql);
         }
     }

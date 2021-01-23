@@ -6,15 +6,14 @@
     class User{
         static $table = 'users';
         public static function get(){
-            $sql = "SELECT id, name, email, phone, password, change_password FROM " . self::$table . " WHERE updated = true";
-            return DB::sqlSelect($sql);
+            return DB::select();
         }
 
         public static function post(){
             $request = Helper::getInputs();
             $request[0]['password'] = password_hash('12345', PASSWORD_DEFAULT);
             $request[0]['role'] = 1;
-            Helper::see($request);
+            // Helper::see($request);
             return DB::insert($request);
         }
 

@@ -15,8 +15,7 @@
         }
 
         public static function get(){
-            $sql = "SELECT id, name, price, ask_obs FROM ". self::$table." WHERE updated = true";
-            return DB::sqlSelect($sql);
+            return DB::select();
         }
 
         public static function post(){

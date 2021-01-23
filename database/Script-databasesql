@@ -79,7 +79,7 @@ CREATE table users(
 
 -- made in local
 CREATE table customers(
-	id integer primary key,
+	id integer auto_increment primary key,
 	name varchar(50) not null,
 	address varchar(50) not null,
 	phone varchar(11) unique not null,
@@ -92,7 +92,7 @@ CREATE table customers(
 
 -- made in local
 create table cashiers(
-	id integer primary key,
+	id integer auto_increment primary key,
 	user_id integer not null,
 	money real,
 	debit real,
@@ -106,7 +106,7 @@ create table cashiers(
 
 -- made in local
 CREATE table orders(
-	id integer primary key,
+	id integer auto_increment primary key,
 	cashier_id integer not null,
 	customer_id integer,
 	money real not null default 0,
@@ -123,7 +123,7 @@ CREATE table orders(
 
 -- made in local
 create table items(
-	id integer primary key,
+	id integer auto_increment primary key,
 	quantity integer not null,
 	product_id integer not null,
 	price real not null,

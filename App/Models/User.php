@@ -6,7 +6,7 @@
     class User{
         static $table = 'users';
         public static function get(){
-            $sql = "SELECT id, name, email, phone, password, change_password FROM " . self::$table;
+            $sql = "SELECT id, name, email, phone, password, change_password FROM " . self::$table . " WHERE updated = true";
             return DB::sqlSelect($sql);
         }
 
@@ -30,5 +30,10 @@
             $sql = "SELECT MAX(id) as lastId FROM " . self::$table;
             Helper::see(DB::sqlSelect($sql));
             return DB::sqlSelect($sql);
+        }
+
+        public static function updatedToFalse(){
+            $sql = "UPDATE " .self::$table. " SET updated = FALSE WHERE updated = TRUE";
+            return DB::update($sql);
         }
     }

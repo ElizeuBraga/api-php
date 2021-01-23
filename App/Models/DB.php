@@ -83,38 +83,49 @@
             return self::select();
         }
 
-        public static function update(){
-            $request = self::$request;
+        public static function update($sql = false){
             
             //mount sql to update
-            $sql = Helper::sql_update($request, self::$table, self::$id);
+            if(!$sql){
+                $request = self::$request;
+                $sql = Helper::sql_update($request, self::$table, self::$id);
+            }
 
+            
             // var_dump($request); die();
             // echo $sql; die();
-
+            
             $con = new \PDO(DNS,DBUSER,DBPASS);
             $con->beginTransaction();
             $con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             try {
                 $stmt= $con->prepare($sql);
-                foreach ($request as $r) {
-                    foreach ($r as $key => $value) {
-                        if($value != ""){
-                            $stmt->bindValue($key, $value);
+                if(isset($request)){
+                    foreach ($request as $r) {
+                        foreach ($r as $key => $value) {
+                            if($value != ""){
+                                $stmt->bindValue($key, $value);
+                            }
                         }
                     }
-                    $stmt->execute();
                 }
+                $stmt->execute();
             } catch (\PDOException $e) {
                 $con->rollback();
                 http_response_code(200);
                 echo json_encode(array('message' => Helper::trateMessageDb($e->getMessage())));
                 die();
             }
-
+            // Helper::see($sql);
+            
             $con->commit();
             http_response_code(200);
-            return self::select();
+
+            if(!$sql){
+                return self::select();
+            }
+
+            return true;
         }
 
         public static function delete(){

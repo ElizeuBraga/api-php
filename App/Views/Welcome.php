@@ -110,6 +110,14 @@
                     if(this.page == 'home'){
                         this.page = 'pages'
                     }
+                    
+                    if(this.page = 'products'){
+                        await axios.get(this.url+this.page+'/getProductsWithSection').then((response)=>{
+                            this.items = response.data
+                        })
+
+                        return
+                    }
                     await axios.get(this.url+this.page+'/get').then((response)=>{
                         this.items = response.data
                     })

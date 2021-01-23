@@ -5,12 +5,17 @@
 
     class Product{
         static $table = 'products';
-        public static function get(){
+        public static function getProductsWithSection(){
             $sql = "SELECT 
                         p.id, p.name, p.price, s.name as section, p.section_id
                     FROM
                         products p 
                     JOIN sections s on s.id = p.section_id WHERE p.deleted_at is null ORDER BY s.name, p.name";
+            return DB::sqlSelect($sql);
+        }
+
+        public static function get(){
+            $sql = "SELECT id, name, price, ask_obs FROM ". self::$table." WHERE updated = true";
             return DB::sqlSelect($sql);
         }
 

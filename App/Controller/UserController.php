@@ -23,4 +23,8 @@
         public function getLastId(){
             return User::getLastId();
         }
+
+        public function updatedToFalse(){
+            return User::updatedToFalse();
+        }
     }

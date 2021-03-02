@@ -2,8 +2,8 @@
     namespace App\Models;
     use App\Models\DB;
 
-    class Section{
-        static $table = 'sections';
+    class City{
+        static $table = 'cities';
         public static function get(){
             return DB::select();
         }
@@ -18,11 +18,6 @@
 
         public static function delete(){
             return DB::delete();
-        }
-
-        public static function getLastId(){
-            $sql = "SELECT CASE WHEN MAX(id) IS NULL THEN 0 ELSE MAX(id) END AS lastId FROM " . self::$table;
-            return DB::sqlSelect($sql);
         }
 
         public static function downloadData(){

@@ -24,4 +24,8 @@
         public function getLastId(){
             return Section::getLastId();
         }
+
+        public function downloadData(){
+            return Section::downloadData();
+        }
     }

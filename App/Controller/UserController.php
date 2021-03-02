@@ -24,7 +24,7 @@
             return User::getLastId();
         }
 
-        public function updatedToFalse(){
-            return User::updatedToFalse();
+        public function downloadData(){
+            return User::downloadData();
         }
     }

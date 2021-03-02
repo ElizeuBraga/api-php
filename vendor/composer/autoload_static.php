@@ -26,15 +26,18 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
 
     public static $classMap = array (
         'App\\Controller\\CashierController' => __DIR__ . '/../..' . '/App/Controller/CashierController.php',
+        'App\\Controller\\CitieController' => __DIR__ . '/../..' . '/App/Controller/ProfileController copy.php',
         'App\\Controller\\CustomerController' => __DIR__ . '/../..' . '/App/Controller/CustomerController.php',
         'App\\Controller\\ItemController' => __DIR__ . '/../..' . '/App/Controller/ItemController.php',
         'App\\Controller\\LocalitieController' => __DIR__ . '/../..' . '/App/Controller/LocalitieController.php',
         'App\\Controller\\OrderController' => __DIR__ . '/../..' . '/App/Controller/OrderController.php',
         'App\\Controller\\PageController' => __DIR__ . '/../..' . '/App/Controller/PageController.php',
         'App\\Controller\\ProductController' => __DIR__ . '/../..' . '/App/Controller/ProductController.php',
+        'App\\Controller\\ProfileController' => __DIR__ . '/../..' . '/App/Controller/ProfileController.php',
         'App\\Controller\\SectionController' => __DIR__ . '/../..' . '/App/Controller/SectionController.php',
         'App\\Controller\\UserController' => __DIR__ . '/../..' . '/App/Controller/UserController.php',
         'App\\Models\\Cashier' => __DIR__ . '/../..' . '/App/Models/Cashier.php',
+        'App\\Models\\City' => __DIR__ . '/../..' . '/App/Models/City.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/App/Models/Customer.php',
         'App\\Models\\DB' => __DIR__ . '/../..' . '/App/Models/DB.php',
         'App\\Models\\Helper' => __DIR__ . '/../..' . '/App/Models/Helper.php',
@@ -43,6 +46,7 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
         'App\\Models\\Order' => __DIR__ . '/../..' . '/App/Models/Order.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/App/Models/Page.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/App/Models/Product.php',
+        'App\\Models\\Profile' => __DIR__ . '/../..' . '/App/Models/Profile.php',
         'App\\Models\\Section' => __DIR__ . '/../..' . '/App/Models/Section.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/App/Models/User.php',
     );

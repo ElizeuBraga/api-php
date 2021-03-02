@@ -134,4 +134,23 @@
             $stmt = $con->prepare($sql);
             $stmt->execute();
         }
+
+        public static function maxId(){
+            $sql = "SELECT MAX(id) as lastId FROM " . self::$table;
+
+            return (int)DB::sqlSelect($sql)[0]["lastId"];
+        }
+
+        public static function downloadData(){
+            if(isset($_REQUEST['lastId'])){
+                $lastid = (int)$_REQUEST['lastId'];
+                $sql = "SELECT * FROM " . self::$table . " WHERE id > ". $lastid;
+            }else{
+                $lastdate = $_REQUEST['lastDate'];
+                $sql = "SELECT * FROM " . self::$table . " WHERE updated_at > '". $lastdate . "'";
+            }
+
+
+            return DB::sqlSelect($sql);
+        }
     }

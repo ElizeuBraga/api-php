@@ -12,7 +12,6 @@
         public static function post(){
             $request = Helper::getInputs();
             $request[0]['password'] = password_hash('12345', PASSWORD_DEFAULT);
-            $request[0]['role'] = 1;
             // Helper::see($request);
             return DB::insert($request);
         }
@@ -26,13 +25,10 @@
         }
 
         public static function getLastId(){
-            $sql = "SELECT MAX(id) as lastId FROM " . self::$table;
-            Helper::see(DB::sqlSelect($sql));
-            return DB::sqlSelect($sql);
+            return DB::maxId();
         }
 
-        public static function updatedToFalse(){
-            $sql = "UPDATE " .self::$table. " SET updated = FALSE WHERE updated = TRUE";
-            return DB::update($sql);
+        public static function downloadData(){
+            return DB::downloadData();
         }
     }

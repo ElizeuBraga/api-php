@@ -7,15 +7,18 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controller\\CashierController' => $baseDir . '/App/Controller/CashierController.php',
+    'App\\Controller\\CitieController' => $baseDir . '/App/Controller/ProfileController copy.php',
     'App\\Controller\\CustomerController' => $baseDir . '/App/Controller/CustomerController.php',
     'App\\Controller\\ItemController' => $baseDir . '/App/Controller/ItemController.php',
     'App\\Controller\\LocalitieController' => $baseDir . '/App/Controller/LocalitieController.php',
     'App\\Controller\\OrderController' => $baseDir . '/App/Controller/OrderController.php',
     'App\\Controller\\PageController' => $baseDir . '/App/Controller/PageController.php',
     'App\\Controller\\ProductController' => $baseDir . '/App/Controller/ProductController.php',
+    'App\\Controller\\ProfileController' => $baseDir . '/App/Controller/ProfileController.php',
     'App\\Controller\\SectionController' => $baseDir . '/App/Controller/SectionController.php',
     'App\\Controller\\UserController' => $baseDir . '/App/Controller/UserController.php',
     'App\\Models\\Cashier' => $baseDir . '/App/Models/Cashier.php',
+    'App\\Models\\City' => $baseDir . '/App/Models/City.php',
     'App\\Models\\Customer' => $baseDir . '/App/Models/Customer.php',
     'App\\Models\\DB' => $baseDir . '/App/Models/DB.php',
     'App\\Models\\Helper' => $baseDir . '/App/Models/Helper.php',
@@ -24,6 +27,7 @@ return array(
     'App\\Models\\Order' => $baseDir . '/App/Models/Order.php',
     'App\\Models\\Page' => $baseDir . '/App/Models/Page.php',
     'App\\Models\\Product' => $baseDir . '/App/Models/Product.php',
+    'App\\Models\\Profile' => $baseDir . '/App/Models/Profile.php',
     'App\\Models\\Section' => $baseDir . '/App/Models/Section.php',
     'App\\Models\\User' => $baseDir . '/App/Models/User.php',
 );

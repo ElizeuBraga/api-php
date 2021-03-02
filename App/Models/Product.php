@@ -34,4 +34,8 @@
             $sql = "SELECT CASE WHEN MAX(id) IS NULL THEN 0 ELSE MAX(id) END AS lastId FROM " . self::$table;
             return DB::sqlSelect($sql);
         }
+
+        public static function downloadData(){
+            return DB::downloadData();
+        }
     }

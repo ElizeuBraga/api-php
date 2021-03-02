@@ -23,4 +23,8 @@
         public function getLastId(){
             return Product::getLastId();
         }
+
+        public function downloadData(){
+            return Product::downloadData();
+        }
     }

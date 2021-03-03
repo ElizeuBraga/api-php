@@ -49,6 +49,10 @@
         }
 
         public static function insert($request = array()){
+            $pusher = new \Pusher\Pusher( APP_KEY, APP_SECRET, APP_ID, array('cluster' => APP_CLUSTER) );
+
+            $pusher->trigger( [ 'data-insert' ], 'insert', true );
+            // Helper::see($pusher);
             if($request){
                 $request = $request;
             }else{

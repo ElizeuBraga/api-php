@@ -88,7 +88,9 @@
         }
 
         public static function update($sql = false){
-            
+            $pusher = new \Pusher\Pusher( APP_KEY, APP_SECRET, APP_ID, array('cluster' => APP_CLUSTER) );
+
+            $pusher->trigger( [ 'data-update' ], 'update', true );
             //mount sql to update
             if(!$sql){
                 $request = self::$request;

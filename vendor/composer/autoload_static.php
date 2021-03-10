@@ -40,11 +40,12 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
 
     public static $classMap = array (
         'App\\Controller\\CashierController' => __DIR__ . '/../..' . '/App/Controller/CashierController.php',
-        'App\\Controller\\CitieController' => __DIR__ . '/../..' . '/App/Controller/ProfileController copy.php',
+        'App\\Controller\\CitieController' => __DIR__ . '/../..' . '/App/Controller/CitieController.php',
         'App\\Controller\\CustomerController' => __DIR__ . '/../..' . '/App/Controller/CustomerController.php',
         'App\\Controller\\ItemController' => __DIR__ . '/../..' . '/App/Controller/ItemController.php',
         'App\\Controller\\LocalitieController' => __DIR__ . '/../..' . '/App/Controller/LocalitieController.php',
         'App\\Controller\\OrderController' => __DIR__ . '/../..' . '/App/Controller/OrderController.php',
+        'App\\Controller\\Order_typeController' => __DIR__ . '/../..' . '/App/Controller/Order_typeController.php',
         'App\\Controller\\PageController' => __DIR__ . '/../..' . '/App/Controller/PageController.php',
         'App\\Controller\\PaymentController' => __DIR__ . '/../..' . '/App/Controller/PaymentController.php',
         'App\\Controller\\ProductController' => __DIR__ . '/../..' . '/App/Controller/ProductController.php',
@@ -59,6 +60,7 @@ class ComposerStaticInit095f1e40b1559b1d87af7765efddd34a
         'App\\Models\\Item' => __DIR__ . '/../..' . '/App/Models/Item.php',
         'App\\Models\\Locality' => __DIR__ . '/../..' . '/App/Models/Locality.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/App/Models/Order.php',
+        'App\\Models\\Order_type' => __DIR__ . '/../..' . '/App/Models/Order_type.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/App/Models/Page.php',
         'App\\Models\\Payment' => __DIR__ . '/../..' . '/App/Models/Payment.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/App/Models/Product.php',
